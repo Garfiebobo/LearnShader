@@ -1,0 +1,19 @@
+{
+  "Version": "v0.0.1",
+  "Type": 1,
+  "AccessRight": 1,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Pro/Shader/3.ColorControl/",
+  "DocUrl": "http://liangxiegame.com",
+  "Readme": {
+    "version": "v0.0.1",
+    "content": "颜色控制",
+    "author": "liangxie",
+    "date": "2019 年 07 月 03 日 16:08",
+    "VersionNumber": 1
+  },
+  "Id": null,
+  "Name": "3.ColorControl",
+  "VersionNumber": 1,
+  "FileName": "3.ColorControl_v0.0.1.unitypackage"
+}
