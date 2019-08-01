@@ -41,7 +41,9 @@ Shader "boboshader/Toon"
 
                 o.pos = UnityObjectToClipPos(v.vertex);
 
-                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+                o.color =_Diffuse; // 绿色
+           
+            fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
 
                 fixed3 worldNormal = normalize(mul(v.normal,(float3x3)unity_WorldToObject));
 
@@ -49,18 +51,18 @@ Shader "boboshader/Toon"
 
                 fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLight));
 
-                o.color = ambient + diffuse;
-
+                 o.color = ambient + diffuse;
+           
                 return o;
+           
             }
 
             float4 frag (v2f i) : SV_Target
             {
-                  fixed4 outputColor = fixed4(i.color,1.0);
-                  outputColor.r = 0;
-                  return outputColor;
+                  return fixed4(i.color,1.0);
             }
             ENDCG
+
         }
     }
 }
