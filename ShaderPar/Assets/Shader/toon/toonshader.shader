@@ -14,7 +14,7 @@ Shader "boboshader/Toon"
 
             CGPROGRAM
 
-            #pragma vertex vert
+            #pragma vertex vert 
             #pragma fragment frag
 
             #include "UnityCG.cginc"
@@ -29,8 +29,10 @@ Shader "boboshader/Toon"
 
             struct v2f
             {
+                // SV_POSITION:描述的变量存储物体顶点在屏幕坐标上的位置
+                // SV_POSITION:描述裁剪空间中的顶点坐标
                 float4 pos: SV_POSITION; 
-                float3 color : Color;
+                float3 color : Color;     // COLOR 告诉 Shader，color存储的是顶点颜色
             };
 
             float4 _Diffuse;
@@ -42,16 +44,31 @@ Shader "boboshader/Toon"
                 o.pos = UnityObjectToClipPos(v.vertex);
 
                 o.color =_Diffuse; // 绿色
-           
-            fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
-
+                  // 环境光
+                fixed3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
+                // 表面法线   
                 fixed3 worldNormal = normalize(mul(v.normal,(float3x3)unity_WorldToObject));
-
+                // 顶点到光源方向  
                 fixed3 worldLight = normalize(_WorldSpaceLightPos0.xyz);
 
-                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * saturate(dot(worldNormal, worldLight));
+                float NdotL = saturate(dot(worldNormal, worldLight));
 
-                 o.color = ambient + diffuse;
+                if (NdotL > 0.9)
+                {
+                    NdotL = 1;
+                } 
+                else if (NdotL > 0.5)
+                {
+                    NdotL = 0.6;
+                } 
+                else 
+                {
+                    NdotL = 0;
+                }
+
+                fixed3 diffuse = _LightColor0.rgb * _Diffuse.rgb * NdotL;
+
+                o.color = ambient + diffuse;
            
                 return o;
            
