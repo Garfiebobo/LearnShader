@@ -41,14 +41,14 @@ Shader "boboshader/Toon"
             //顶点着色器
             v2f vert (appdata v)
             {
-                    v2f o;
+                v2f o;
 
-                    o.pos = UnityObjectToClipPos(v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
 
-                    // 表面法线                
-                    o.worldNormal = normalize(mul(v.normal,(float3x3)unity_WorldToObject));
+                // 表面法线                
+                o.worldNormal = normalize(mul(v.normal,(float3x3)unity_WorldToObject));
 
-                    return o;
+                return o;
             }
 
             float4 frag (v2f i) : SV_Target
